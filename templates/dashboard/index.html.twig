@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+    {% for game in games %}
+        <li><a href="{{ game.url }}?userId={{ app.user.id }}&hash={{ game.hash(app.user) }}">{{ game.name }}</a></li>
+    {% endfor %}
+{% endblock %}

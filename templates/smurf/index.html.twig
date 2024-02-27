@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Smurf index{% endblock %}
+
+{% block body %}
+    <h1>Smurf index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for smurf in smurves %}
+            <tr>
+                <td>{{ smurf.id }}</td>
+                <td>{{ smurf.name }}</td>
+                <td>{{ smurf.gender ? 'Male' : 'Female' }}</td>
+                <td>
+                    <a href="{{ path('app_smurf_show', {'id': smurf.id}) }}">show</a>
+                    <a href="{{ path('app_smurf_edit', {'id': smurf.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_smurf_new') }}">Create new</a>
+{% endblock %}

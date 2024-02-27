@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Smurf;
+use App\Repository\SmurfRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,5 +40,15 @@ class HomepageController extends AbstractController
     public function ping(): Response
     {
         return $this->json(['message' => 'ok']);
+    }
+
+    #[Route('/smurf-old/{smurf}', name: 'app_smurf_old')]
+    public function smurf(string $smurf, SmurfRepository $smurfRepository): Response
+    {
+        $smurf = $smurfRepository->findOneBy(['id' => $smurf]);
+        return $this->json([
+            'name' => $smurf->getName(),
+            'gender' => $smurf->isGender() ? 'Man' : 'Vrouw'
+        ]);
     }
 }
